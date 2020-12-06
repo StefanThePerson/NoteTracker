@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Button from 'react-bootstrap/Button'
 import {getNotes} from '../helpers/Notes'
 import ListGroup from 'react-bootstrap/ListGroup'
 
@@ -9,17 +10,23 @@ export default function List() {
   }
 
   return (
-    <ListGroup as="ul">
-      {getNotes().map((note, index) => (
-        <ListGroup.Item
-          active={selectedNote ? note.id === selectedNote.id : false}
-          onClick={() => onSelectNote(note)}
-          as="li"
-        >
-          {note.title}
-        </ListGroup.Item>
-      ))}
-    </ListGroup>
+    <>
+      <Button variant="dark" block>
+        New note
+      </Button>
+      <br />
+      <ListGroup as="ul">
+        {getNotes().map((note, index) => (
+          <ListGroup.Item
+            active={selectedNote ? note.id === selectedNote.id : false}
+            onClick={() => onSelectNote(note)}
+            as="li"
+          >
+            {note.title}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+    </>
   )
 }
 /* 

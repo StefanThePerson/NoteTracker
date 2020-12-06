@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 
@@ -13,6 +14,8 @@ export default function Form() {
       <InputGroup>
         <FormControl as="textarea" aria-label="With textarea" />
       </InputGroup>
+      <br />
+      <Button variant="primary">Save</Button> <Button variant="danger">Delete</Button>
     </div>
   )
 }
