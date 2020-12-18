@@ -1,22 +1,35 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button'
-import {getNotes} from '../helpers/Notes'
 import ListGroup from 'react-bootstrap/ListGroup'
+import {getNotes} from '../helpers/Notes'
+import Alert from 'react-bootstrap/Alert'
 
-export default function List() {
-  const [selectedNote, setSelectedNote] = useState(undefined)
+export default function List({selectedNote, setSelectedNote, notes}) {
+  const [alertNoNotes, switchNoNotes] = useState(false)
+  useEffect(() => {
+    if (notes.length === 0) return switchNoNotes(true)
+    return switchNoNotes(false)
+  }, [notes])
+
   const onSelectNote = (note) => {
     setSelectedNote(note)
   }
-
+  const onClickNewNote = () => {
+    setSelectedNote(undefined)
+  }
+  /*const alertHQNoNotes = () => {
+    switchOnNoNotes(true)
+    setTimeout(() => switchOnNoNotes(false), 10000)
+  }*/
   return (
     <>
-      <Button variant="dark" block>
+      <Button variant="dark" block onClick={onClickNewNote}>
         New note
       </Button>
       <br />
+      {alertNoNotes && <Alert variant="danger">No notes found in list.</Alert>}
       <ListGroup as="ul">
-        {getNotes().map((note, index) => (
+        {notes.map((note, index) => (
           <ListGroup.Item
             active={selectedNote ? note.id === selectedNote.id : false}
             onClick={() => onSelectNote(note)}
